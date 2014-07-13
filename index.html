@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>todo</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="styles/vendor.css">
+
+    <link rel="stylesheet" href="styles/main.css">
+
+    <script src="scripts/vendor/modernizr.js"></script>
+  </head>
+  <body>
+      <header>
+          <h1>DO ME NOW OR DO ME LATER</h1>
+      </header>
+
+
+
+    <script src="scripts/vendor.js"></script>
+
+        <script src="scripts/main.js"></script>
+
+
+
+<form id="add-task">
+
+<input id="new-task" placeholder="What to do?" type="text">
+<button>submit</button>
+</form>
+
+
+
+<script id="do-me-template" type="text/x-handlebars-template">
+            {{#each doMeList}}
+               <div class="do-me-item">
+                <strong>{{summary}}</strong>
+               </div>
+            {{/each}}
+</script>
+
+<div class="do-me-list">
+</div>
+</body>
+</html>
