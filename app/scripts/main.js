@@ -50,7 +50,8 @@ var DoMeView = Backbone.View.extend({
       var source = $('#do-me-template').html();
       var template = Handlebars.compile(source);
       var rendered = template({doMeList: this.collection.toJSON()})
-      this.$el.append(rendered);
+      this.$el.html(rendered);
+      //rendered this.$el.replaceWith(rendered);
       return this;
   }
 
