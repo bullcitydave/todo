@@ -97,9 +97,9 @@ $(document).ready(function() {
       alert('Deleting');
       console.log('Delete');
         var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
+        doMeList.remove( doMeList.get(getId) );
         var modo = doMeList.get(getId);
-        modo.destroy();
+        // modo.destroy();
     })
 
     $('.complete').click(function() {
@@ -109,6 +109,10 @@ $(document).ready(function() {
     })
     $('.edit').click(function() {
       alert('Editing');
+      alert($(this).siblings('strong').attr('contenteditable'));
+      $(this).siblings('strong').css('color', 'blue');
+      $(this).siblings('strong').attr({'contenteditable' : 'true'});
+      alert($(this).siblings('strong').attr('contenteditable'));
       console.log('Editing');
 
     })
@@ -142,4 +146,13 @@ $('h1').click(function() {
         // doMeList.remove( doMeList.get(getId) );
         var modo = doMeList.get(getId);
         modo.destroy();
+    })
+
+
+    $('.edit').click(function() {
+      alert('Editing');
+      alert($(this).siblings('strong').attr('contenteditable'));
+      $(this).siblings('strong').css('', 'blue');
+      console.log('Editing');
+
     })
