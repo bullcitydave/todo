@@ -3,6 +3,11 @@
 
 
 var DoMe = Backbone.Model.extend({
+
+  // initialize: function() {
+  //    this.listenTo(this.model, 'destroy', this.remove);
+  // },
+
   defaults: function(){
       return {
         summary: 'Something I have to do',
@@ -63,7 +68,23 @@ var DoMeView = Backbone.View.extend({
       var rendered = template({doMeList: this.collection.toJSON()});
       this.$el.html(rendered);
       return this;
-  }
+  },
+
+
+events:{
+    'click .delete' : 'doDelete'
+},
+
+
+doDelete : function() {
+  alert('Deleting');
+  console.log('Delete');
+    var getId = ($(this).parent().attr('id'));
+    var modo = doMeList.doMeList.get(getId);
+    modo.destroy();
+}
+
+
 
 });
 
@@ -113,11 +134,20 @@ $('h1').click(function() {
 })
 
 
+///error this is not a function
+// $('.delete').addEventListener('click', function() {
+//         var getId = ($(this).parent().attr('id'));
+//         console.log(getId);
+//         doMeList.get(getId).destroy();
+//     }, false);
 
-$('.delete').click(function() {
-      alert('Clicked');
-      console.log('Delete');
-        var getId = ($(this).parent().attr('id'));  console.log(getId);
-        console.log(getId);
-        doMeList.get(getId).destroy();
-    })
+
+    //
+    // $('.delete').click(function() {
+    //   alert('Deleting');
+    //   console.log('Delete');
+    //     var getId = ($(this).parent().attr('id'));
+    //     // doMeList.remove( doMeList.get(getId) );
+    //     var modo = doMeList.get(getId);
+    //     modo.destroy();
+    // })
