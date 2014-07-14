@@ -36,8 +36,9 @@
 
 <script id="do-me-template" type="text/x-handlebars-template">
             {{#each doMeList}}
-               <div class="do-me-item">
+               <div class="do-me-item" id={{_id}}>
                 <strong>{{summary}}</strong>
+                <button>Edit</button><button class="delete">Delete</button><button>Complete</button>
                </div>
             {{/each}}
 </script>
