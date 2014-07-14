@@ -41,6 +41,8 @@ var DoMeList = Backbone.Collection.extend({
     model: DoMe,
     url:'http://tiny-pizza-server.herokuapp.com/collections/dome',
     comparator : mostRecent
+
+
   });
 
 
@@ -71,18 +73,6 @@ var DoMeView = Backbone.View.extend({
   },
 
 
-events:{
-    'click .delete' : 'doDelete'
-},
-
-
-doDelete : function() {
-  alert('Deleting');
-  console.log('Delete');
-    var getId = ($(this).parent().attr('id'));
-    var modo = doMeList.doMeList.get(getId);
-    modo.destroy();
-}
 
 
 
@@ -102,6 +92,7 @@ $(document).ready(function() {
         return false;
       });
 
+///this works first time only
     $('.delete').click(function() {
       alert('Deleting');
       console.log('Delete');
@@ -110,6 +101,7 @@ $(document).ready(function() {
         var modo = doMeList.get(getId);
         modo.destroy();
     })
+
     $('.complete').click(function() {
       alert('Completing');
       console.log('Completing');
@@ -142,12 +134,12 @@ $('h1').click(function() {
 //     }, false);
 
 
-    //
-    // $('.delete').click(function() {
-    //   alert('Deleting');
-    //   console.log('Delete');
-    //     var getId = ($(this).parent().attr('id'));
-    //     // doMeList.remove( doMeList.get(getId) );
-    //     var modo = doMeList.get(getId);
-    //     modo.destroy();
-    // })
+    //// this doesn't do anything outside of a function
+    $('.delete').click(function() {
+      alert('Deleting');
+      console.log('Delete');
+        var getId = ($(this).parent().attr('id'));
+        // doMeList.remove( doMeList.get(getId) );
+        var modo = doMeList.get(getId);
+        modo.destroy();
+    })
