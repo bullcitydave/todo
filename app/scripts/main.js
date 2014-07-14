@@ -40,7 +40,7 @@ var DoMeList = Backbone.Collection.extend({
 
 
 var doMeList = new DoMeList();
-doMeList.fetch();
+// doMeList.fetch();
 
 
 
@@ -80,14 +80,9 @@ $(document).ready(function() {
         doMeList.add(doMe);
         return false;
       });
-    // $('button').click(function() {
-    //   alert('Clicked');
-    //   console.log('Delete');
-    //     var getId = ($(this).parent().attr('id'));
-    //     doMeList.remove( doMeList.get(getId) );
-    // })
+
     $('.delete').click(function() {
-      alert('Clicked');
+      alert('Deleting');
       console.log('Delete');
         var getId = ($(this).parent().attr('id'));
         // doMeList.remove( doMeList.get(getId) );
@@ -97,35 +92,17 @@ $(document).ready(function() {
     $('.complete').click(function() {
       alert('Completing');
       console.log('Completing');
-        // var getId = ($(this).parent().attr('id'));
-        // // doMeList.remove( doMeList.get(getId) );
-        // var modo = doMeList.get(getId);
-        // modo.destroy();
+
     })
     $('.edit').click(function() {
-      alert('Completing');
-      console.log('Completing');
-        // var getId = ($(this).parent().attr('id'));
-        // // doMeList.remove( doMeList.get(getId) );
-        // var modo = doMeList.get(getId);
-        // modo.destroy();
+      alert('Editing');
+      console.log('Editing');
+
     })
-    // $('.do-me-item').click(function() {
-    //   alert('Clicked');
-    //   console.log('Delete');
-        // var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
-    // })
+
  })
 
 
-//
-// $('#53c36f13df7a380200000070').click(function() {
-//   alert('Clicked');
-//   console.log('Delete');
-//     var getId = ($(this).parent().attr('id'));
-//     doMeList.remove( doMeList.get(getId) );
-// })
 
 
 $('h1').click(function() {
@@ -135,31 +112,12 @@ $('h1').click(function() {
     // doMeList.remove( doMeList.get(getId) );
 })
 
-$('.do-me-item').click(function() {
-  alert('Clicked');
-  console.log('Delete');
-    // var getId = ($(this).parent().attr('id'));
-    // doMeList.remove( doMeList.get(getId) );
-})
-
-//
-// $('.delete').click(function() {
-//   alert('Clicked');
-//   console.log('Delete');
-//     var getId = ($(this).parent().attr('id'));
-//     doMeList.remove( doMeList.get(getId) );
-// })
 
 
-
-//
-// $('button').click(function() {
-//       alert('Clicked');
-//       console.log('Delete');
-//         var getId = ($(this).parent().attr('id'));  console.log(getId);
-//         console.log(getId);
-//         // doMeList.remove( doMeList.get(getId) );
-//         doMeLit.get(getID).destroy();
-//         var modo = doMetLit.get(getID);
-//         modo.destroy();
-//     })
+$('.delete').click(function() {
+      alert('Clicked');
+      console.log('Delete');
+        var getId = ($(this).parent().attr('id'));  console.log(getId);
+        console.log(getId);
+        doMeList.get(getId).destroy();
+    })
