@@ -3,6 +3,11 @@
 
 
 var DoMe = Backbone.Model.extend({
+
+  // initialize: function() {
+  //    this.listenTo(this.model, 'destroy', this.remove);
+  // },
+
   defaults: function(){
       return {
         summary: 'Something I have to do',
@@ -36,11 +41,13 @@ var DoMeList = Backbone.Collection.extend({
     model: DoMe,
     url:'http://tiny-pizza-server.herokuapp.com/collections/dome',
     comparator : mostRecent
+
+
   });
 
 
 var doMeList = new DoMeList();
-doMeList.fetch();
+// doMeList.fetch();
 
 
 
@@ -63,7 +70,11 @@ var DoMeView = Backbone.View.extend({
       var rendered = template({doMeList: this.collection.toJSON()});
       this.$el.html(rendered);
       return this;
-  }
+  },
+
+
+
+
 
 });
 
@@ -80,36 +91,35 @@ $(document).ready(function() {
         doMeList.add(doMe);
         return false;
       });
-    // $('button').click(function() {
-    //   alert('Clicked');
-    //   console.log('Delete');
-    //     var getId = ($(this).parent().attr('id'));
-    //     doMeList.remove( doMeList.get(getId) );
-    // })
+
+///this works first time only
     $('.delete').click(function() {
-      alert('Clicked');
+      alert('Deleting');
       console.log('Delete');
         var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
+        doMeList.remove( doMeList.get(getId) );
         var modo = doMeList.get(getId);
-        modo.destroy();
+        // modo.destroy();
     })
-    // $('.do-me-item').click(function() {
-    //   alert('Clicked');
-    //   console.log('Delete');
-        // var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
-    // })
+
+    $('.complete').click(function() {
+      alert('Completing');
+      console.log('Completing');
+
+    })
+    $('.edit').click(function() {
+      alert('Editing');
+      alert($(this).siblings('strong').attr('contenteditable'));
+      $(this).siblings('strong').css('color', 'blue');
+      $(this).siblings('strong').attr({'contenteditable' : 'true'});
+      alert($(this).siblings('strong').attr('contenteditable'));
+      console.log('Editing');
+
+    })
+
  })
 
 
-//
-// $('#53c36f13df7a380200000070').click(function() {
-//   alert('Clicked');
-//   console.log('Delete');
-//     var getId = ($(this).parent().attr('id'));
-//     doMeList.remove( doMeList.get(getId) );
-// })
 
 
 $('h1').click(function() {
@@ -119,31 +129,30 @@ $('h1').click(function() {
     // doMeList.remove( doMeList.get(getId) );
 })
 
-$('.do-me-item').click(function() {
-  alert('Clicked');
-  console.log('Delete');
-    // var getId = ($(this).parent().attr('id'));
-    // doMeList.remove( doMeList.get(getId) );
-})
 
-//
-// $('.delete').click(function() {
-//   alert('Clicked');
-//   console.log('Delete');
-//     var getId = ($(this).parent().attr('id'));
-//     doMeList.remove( doMeList.get(getId) );
-// })
-
-
-
-//
-// $('button').click(function() {
-//       alert('Clicked');
-//       console.log('Delete');
-//         var getId = ($(this).parent().attr('id'));  console.log(getId);
+///error this is not a function
+// $('.delete').addEventListener('click', function() {
+//         var getId = ($(this).parent().attr('id'));
 //         console.log(getId);
-//         // doMeList.remove( doMeList.get(getId) );
-//         doMeLit.get(getID).destroy();
-//         var modo = doMetLit.get(getID);
-//         modo.destroy();
-//     })
+//         doMeList.get(getId).destroy();
+//     }, false);
+
+
+    //// this doesn't do anything outside of a function
+    $('.delete').click(function() {
+      alert('Deleting');
+      console.log('Delete');
+        var getId = ($(this).parent().attr('id'));
+        // doMeList.remove( doMeList.get(getId) );
+        var modo = doMeList.get(getId);
+        modo.destroy();
+    })
+
+
+    $('.edit').click(function() {
+      alert('Editing');
+      alert($(this).siblings('strong').attr('contenteditable'));
+      $(this).siblings('strong').css('', 'blue');
+      console.log('Editing');
+
+    })
