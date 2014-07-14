@@ -1,75 +1,80 @@
+/// DEFINE MODEL ///
+
+    var DoMe = Backbone.Model.extend({
+
+      // initialize: function() {
+      //    this.listenTo(this.model, 'destroy', this.remove);
+      // },
+
+      defaults: function(){
+          return {
+            summary: 'Something I have to do',
+            details: 'Need some details',
+            dueDate: '',
+            status: 'open'
+        };
+      },
+
+      urlRoot:'http://tiny-pizza-server.herokuapp.com/collections/dome',
+
+      idAttribute: '_id'
+    });
+
+
+// This is a completely ridiculously way to force a sort that returns the latest submission first; converts _id from hexadecimal to decimal and sorts by negative, so higher _id values are shown first; since no _id has yet been generated for the new item, force a very large negative number to be returned
+    var mostRecent = function (model) {
+      var pseudoID;
+      if (model.get('_id') == undefined) {
+        pseudoID = -9.5923158918808516e+28;
+        console.log('here');
+      }
+      else {
+        pseudoID = -(parseInt((model.get('_id')), 16));
+      }
+      console.log(pseudoID);
+      return pseudoID;
+    }
+
+
+/// DEFINE COLLECTION ///
+
+    var DoMeList = Backbone.Collection.extend({
+        model: DoMe,
+        url:'http://tiny-pizza-server.herokuapp.com/collections/dome',
+        comparator : mostRecent
+      });
+
+
+    var doMeList = new DoMeList();
 
 
 
 
-var DoMe = Backbone.Model.extend({
-  defaults: function(){
-      return {
-        summary: 'Something I have to do',
-        details: 'Need some details',
-        dueDate: '',
-        status: 'open'
-    };
-  },
+/// DEFINE VIEW ///
 
-  urlRoot:'http://tiny-pizza-server.herokuapp.com/collections/dome',
+    var DoMeView = Backbone.View.extend({
+      className : 'do-me-list',
 
-  idAttribute: '_id'
-});
+      initialize: function(){
+          console.log("Ready to do me!");
+          this.listenTo(this.collection, 'add', this.render);
+          this.listenTo(this.collection, 'remove', this.render);
+          this.collection.fetch();
+        },
 
+        render: function(){
+          var source = $('#do-me-template').html();
+          var template = Handlebars.compile(source);
+          var rendered = template({doMeList: this.collection.toJSON()});
+          this.$el.html(rendered);
+          return this;
+      },
 
-// this is a completely ridiculously way to force a sort that returns the latest submission first; converts _id from hexadecimal to decimal and sorts by negative, so higher _id values are shown first; since no _id has yet been generated for the new item, force a very large negative number to be returned
-var mostRecent = function (model) {
-  var pseudoID;
-  if (model.get('_id') == undefined) {
-    pseudoID = -9.5923158918808516e+28;
-    console.log('here');
-  }
-  else {
-    pseudoID = -(parseInt((model.get('_id')), 16));
-  }
-  console.log(pseudoID);
-  return pseudoID;
-}
+    });
 
-var DoMeList = Backbone.Collection.extend({
-    model: DoMe,
-    url:'http://tiny-pizza-server.herokuapp.com/collections/dome',
-    comparator : mostRecent
-  });
-
-
-var doMeList = new DoMeList();
-doMeList.fetch();
-
-
-
-
-
-
-var DoMeView = Backbone.View.extend({
-  className : 'do-me-list',
-
-  initialize: function(){
-      console.log("Ready to do me!");
-      this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'remove', this.render);
-      this.collection.fetch();
-    },
-
-    render: function(){
-      var source = $('#do-me-template').html();
-      var template = Handlebars.compile(source);
-      var rendered = template({doMeList: this.collection.toJSON()});
-      this.$el.html(rendered);
-      return this;
-  }
-
-});
-
-var doMeView = new DoMeView ({
-  collection: doMeList
-});
+    var doMeView = new DoMeView ({
+      collection: doMeList
+    });
 
 
 $(document).ready(function() {
@@ -80,36 +85,33 @@ $(document).ready(function() {
         doMeList.add(doMe);
         return false;
       });
-    // $('button').click(function() {
-    //   alert('Clicked');
-    //   console.log('Delete');
-    //     var getId = ($(this).parent().attr('id'));
-    //     doMeList.remove( doMeList.get(getId) );
-    // })
+
+///this works first time only
     $('.delete').click(function() {
-      alert('Clicked');
+      alert('Deleting');
       console.log('Delete');
         var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
+        doMeList.remove( doMeList.get(getId) );
         var modo = doMeList.get(getId);
-        modo.destroy();
+        // modo.destroy();
     })
-    // $('.do-me-item').click(function() {
-    //   alert('Clicked');
-    //   console.log('Delete');
-        // var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
-    // })
+
+    $('.complete').click(function() {
+      alert('Completing');
+      console.log('Completing');
+
+    })
+    $('.edit').click(function() {
+      alert('Editing');
+      alert($(this).siblings('strong').attr('contenteditable'));
+      $(this).siblings('strong').css('color', 'blue');
+      $(this).siblings('strong').attr({'contenteditable' : 'true'});
+      alert($(this).siblings('strong').attr('contenteditable'));
+      console.log('Editing');
+
+    })
+
  })
-
-
-//
-// $('#53c36f13df7a380200000070').click(function() {
-//   alert('Clicked');
-//   console.log('Delete');
-//     var getId = ($(this).parent().attr('id'));
-//     doMeList.remove( doMeList.get(getId) );
-// })
 
 
 $('h1').click(function() {
@@ -119,31 +121,30 @@ $('h1').click(function() {
     // doMeList.remove( doMeList.get(getId) );
 })
 
-$('.do-me-item').click(function() {
-  alert('Clicked');
-  console.log('Delete');
-    // var getId = ($(this).parent().attr('id'));
-    // doMeList.remove( doMeList.get(getId) );
-})
 
-//
-// $('.delete').click(function() {
-//   alert('Clicked');
-//   console.log('Delete');
-//     var getId = ($(this).parent().attr('id'));
-//     doMeList.remove( doMeList.get(getId) );
-// })
-
-
-
-//
-// $('button').click(function() {
-//       alert('Clicked');
-//       console.log('Delete');
-//         var getId = ($(this).parent().attr('id'));  console.log(getId);
+///error this is not a function
+// $('.delete').addEventListener('click', function() {
+//         var getId = ($(this).parent().attr('id'));
 //         console.log(getId);
-//         // doMeList.remove( doMeList.get(getId) );
-//         doMeLit.get(getID).destroy();
-//         var modo = doMetLit.get(getID);
-//         modo.destroy();
-//     })
+//         doMeList.get(getId).destroy();
+//     }, false);
+
+
+    //// this doesn't do anything outside of a function
+    $('.delete').click(function() {
+      alert('Deleting');
+      console.log('Delete');
+        var getId = ($(this).parent().attr('id'));
+        // doMeList.remove( doMeList.get(getId) );
+        var modo = doMeList.get(getId);
+        modo.destroy();
+    })
+
+
+    $('.edit').click(function() {
+      alert('Editing');
+      alert($(this).siblings('strong').attr('contenteditable'));
+      $(this).siblings('strong').css('', 'blue');
+      console.log('Editing');
+
+    })
