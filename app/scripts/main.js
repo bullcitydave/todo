@@ -94,6 +94,22 @@ $(document).ready(function() {
         var modo = doMeList.get(getId);
         modo.destroy();
     })
+    $('.complete').click(function() {
+      alert('Completing');
+      console.log('Completing');
+        // var getId = ($(this).parent().attr('id'));
+        // // doMeList.remove( doMeList.get(getId) );
+        // var modo = doMeList.get(getId);
+        // modo.destroy();
+    })
+    $('.edit').click(function() {
+      alert('Completing');
+      console.log('Completing');
+        // var getId = ($(this).parent().attr('id'));
+        // // doMeList.remove( doMeList.get(getId) );
+        // var modo = doMeList.get(getId);
+        // modo.destroy();
+    })
     // $('.do-me-item').click(function() {
     //   alert('Clicked');
     //   console.log('Delete');
