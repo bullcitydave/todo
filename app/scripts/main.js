@@ -100,8 +100,26 @@ $('.delete').click(function() {
           var rendered = template({doMeList: this.collection.toJSON()});
           this.$el.html(rendered);
           return this;
-        }
+        },
 
+        events: {
+          'click .edit'     : 'editToDo',
+          'click .complete' : 'completeToDo'
+        },
+
+        completeToDo : function(e) {
+            alert('Completing');
+            console.log('Completing');
+          },
+
+
+        editToDo: function (e) {
+          console.log('It works!');
+          var parent = e.currentTarget.parentElement;
+          $(e.currentTarget.parentElement).find('strong').css('color','blue');
+          $(e.currentTarget.parentElement).find('strong').attr({'contenteditable':'true'});
+          console.log('Editing');
+          }
     });
 
 
