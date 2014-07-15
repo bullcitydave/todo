@@ -10,24 +10,25 @@
 - - [ ] Nice to haves
 - - [ ]Hit enter to submit instead of using submit button
 
-- [ ] Edit item
+- Edit item
    - [x] Item become editable
    - [x] Edit button hidden; save button visible
    - [x] Save updates task locally
    - [x] Save updates task externally
    - [x] Save hides save button; edit button visible
-	 - [ ] Nice to haves
-	    - [ ] Get pencil icon working instead of using Edit button label
+	 - Nice to haves
+	    - [x] Get pencil icon working instead of using Edit button label
 
-- [ ] Delete
+- Delete
   - [x] Item removed from collection display
   - [x] Item removed remotely
 
-- [ ] Complete
+- Complete
   - [x] Mark status as Completed in collection
   - [x] Pass status to remote data
-  - [ ] Cross through item; currently requiring two clicks for styling to appear
-  - [ ] Style as crossed-out upon refresh
+  - [x] Cross through item
+  - [x] Style as crossed-out upon refresh
+  - [ ] Prevent click on completed or introduced re-open function
 
 - [ ] Code To-Dos
   - [ ] Refactor code to move styling actions to own functions

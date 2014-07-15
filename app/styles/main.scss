@@ -8,6 +8,7 @@ $title-font      : 'Nothing You Could Do', 'Helvetica Neue', Helvetica, Arial, s
 $default-font    : 'sofia_pro_lightregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 // Colors
 $dark-prime       : darkorange;
+$grayed-out       : #aaa;
 
 * {
   -webkit-margin-before: 0;
@@ -56,6 +57,7 @@ body {
 
 
             p.summary {
+              font-family: $default-font;
               font-weight: bold;
               float:left;
               clear:both;
@@ -105,6 +107,7 @@ body {
 
             .completed {
               text-decoration:line-through;
+              color: $grayed-out;
         }
   }
   }
