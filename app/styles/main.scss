@@ -2,11 +2,14 @@
 @import '../../bower_components/bourbon/dist/bourbon';
 @import '../../bower_components/neat/app/assets/stylesheets/neat';
 @import url(http://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
+@import "font-awesome/css/font-awesome.css";
 
 $title-font      : 'Nothing You Could Do', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $default-font    : 'sofia_pro_lightregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 // Colors
 $dark-prime       : darkorange;
+$darker-prime     : #ab4312;
+$grayed-out       : #aaa;
 
 * {
   -webkit-margin-before: 0;
@@ -55,6 +58,7 @@ body {
 
 
             p.summary {
+              font-family: $default-font;
               font-weight: bold;
               float:left;
               clear:both;
@@ -104,6 +108,7 @@ body {
 
             .completed {
               text-decoration:line-through;
+              color: $grayed-out;
         }
   }
   }

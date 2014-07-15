@@ -70,6 +70,8 @@
           return this;
         },
 
+
+
         events: {
           'click .edit'     : 'editDoMe',
           'click .complete' : 'completeDoMe',
@@ -143,4 +145,17 @@ $(document).ready(function() {
         $('#new-do-me').val('');
         return false;
       });
+    });
+
+
+// Handlebars helpers
+    // Helps style completed tasks when loaded
+    Handlebars.registerHelper("addClasses", function() {
+        if(this.status == "completed") {
+            console.log('completed');
+            return 'completed';
+        } else {
+            console.log('not completed');
+            return '';
+        }
     });

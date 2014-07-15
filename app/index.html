@@ -36,8 +36,6 @@
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/underscore/underscore.js"></script>
-    <script src="../bower_components/backbone/backbone.js"></script>
-    <script src="../bower_components/handlebars/handlebars.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -57,16 +55,12 @@
 <script id="do-me-template" type="text/x-handlebars-template">
             {{#each doMeList}}
                <div class="do-me-item" id={{_id}}>
-                <p class="summary" contenteditable="false">{{summary}}</p>
-                <!-- lower-left pencil -->
-                <!-- <button class="edit">&#128393;</button> -->
-                <button class="edit">Edit</button>
-                <!-- floppy disc -->
-                <!-- <button class="save">&#128190;</button> -->
-                <button class="save">Save</button>
-                <!-- big X -->
+                <p class="summary {{addClasses}}" contenteditable="false">{{summary}}</p>
+                <button class="edit"><i class="fa fa-pencil"></i></button>
+                <button class="save"><i class="fa fa-floppy-o"></i></button>
+                <!-- Delete: big X -->
                 <button class="delete">&#10008;</button>
-                <!-- checkmark -->
+                <!-- Complete: checkmark -->
                 <button class="complete">&#10003;</button>
                 <!-- title font -->
                 <button class="now">Do Me Now</button>
