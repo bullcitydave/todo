@@ -13,67 +13,99 @@ $dark-prime       : darkorange;
   -webkit-margin-after: 0;
 }
 body {
+  @include outer-container;
+
   background: #eaeaea;
   font-family: $default-font;
 
-  h1 {
-    font-family: $title-font;
-    color: $dark-prime;
-    font-size: 3.5em;
+  section#mainwrapper { @include span-columns(11);
+
+      h1 {
+        @include span-columns(11 of 11);
+        font-family: $title-font;
+        color: $dark-prime;
+        font-size: 3.5em;
+        text-align:center;
+      }
+
+      #add-do-me {
+        @include span-columns(9 of 11);
+        @include shift(1);
+        #new-do-me {
+          @include span-columns(7 of 9);
+          height: 35px;
+          padding: 5px;
+        }
+        button {
+          @include span-columns(2 of 9);
+          float:left;
+          @include button(shiny, $dark-prime);
+          color:#eee;
+          height:35px;
+          font-family: $title-font
+        }
+        margin-bottom: 30px;
+      }
+
+      .main-list {
+        margin: 0 15px 0 15px;
+
+        .do-me-item {
+
+
+
+            p.summary {
+              font-weight: bold;
+              float:left;
+              clear:both;
+              width:50%;
+              max-width: 480px;
+              border: solid 2px $dark-prime;
+              max-height: 75px;
+              padding: 10px;
+              margin: 0 8px 8px 0;
+            }
+
+            .todo-action {
+              float:left;
+              @include button(shiny, $dark-prime);
+              color:#eee;
+              height:35px;
+            }
+
+            .save {
+              @extend .todo-action;
+              display:none;
+              font-family: $title-font;
+            }
+
+            .delete, {
+              @extend .todo-action;
+            }
+
+            .edit {
+              @extend .todo-action;
+              font-family: $title-font;
+            }
+
+            .complete {
+              @extend .todo-action;
+            }
+
+            .now {
+              @extend .todo-action;
+              font-family: $title-font;
+            }
+
+            .later {
+              @extend .todo-action;
+              font-family: $title-font;
+            }
+
+            .completed {
+              text-decoration:line-through;
+        }
   }
-
-  .do-me-list {
-    margin: 0 15px 0 15px;
-
-    p.summary {
-      font-weight: bold;
-      float:left;
-      clear:both;
-      width:50%;
-      max-width: 480px;
-      border: solid 2px $dark-prime;
-      max-height: 75px;
-      padding: 10px;
-    }
-
-    .todo-action {
-      float:left;
-      @include button(shiny, $dark-prime);
-      color:#eee;
-      height:35px;
-    }
-
-    .save {
-      @extend .todo-action;
-      display:none;
-      font-family: $title-font;
-    }
-
-    .delete, {
-      @extend .todo-action;
-    }
-
-    .edit {
-      @extend .todo-action;
-      font-family: $title-font;
-    }
-
-    .complete {
-      @extend .todo-action;
-    }
-
-    .now {
-      @extend .todo-action;
-      font-family: $title-font;
-    }
-
-    .later {
-      @extend .todo-action;
-      font-family: $title-font;
-    }
-
-    .completed {
-      text-decoration:line-through;
-    }
   }
+}
 }
