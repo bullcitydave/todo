@@ -1,158 +1,136 @@
+/// DEFINE MODEL ///
+
+    var DoMe = Backbone.Model.extend({
+
+      defaults: function(){
+          return {
+            summary: 'Something I have to do',
+            details: '',
+            dueDate: '',
+            status: 'open'
+        };
+      },
+
+      urlRoot:'http://tiny-pizza-server.herokuapp.com/collections/dome',
+
+      idAttribute: '_id'
+
+    });
 
 
 
-
-var DoMe = Backbone.Model.extend({
-
-  // initialize: function() {
-  //    this.listenTo(this.model, 'destroy', this.remove);
-  // },
-
-  defaults: function(){
-      return {
-        summary: 'Something I have to do',
-        details: 'Need some details',
-        dueDate: '',
-        status: 'open'
-    };
-  },
-
-  urlRoot:'http://tiny-pizza-server.herokuapp.com/collections/dome',
-
-  idAttribute: '_id'
-});
-
-
-// this is a completely ridiculously way to force a sort that returns the latest submission first; converts _id from hexadecimal to decimal and sorts by negative, so higher _id values are shown first; since no _id has yet been generated for the new item, force a very large negative number to be returned
-var mostRecent = function (model) {
-  var pseudoID;
-  if (model.get('_id') == undefined) {
-    pseudoID = -9.5923158918808516e+28;
-    console.log('here');
-  }
-  else {
-    pseudoID = -(parseInt((model.get('_id')), 16));
-  }
-  console.log(pseudoID);
-  return pseudoID;
-}
-
-var DoMeList = Backbone.Collection.extend({
-    model: DoMe,
-    url:'http://tiny-pizza-server.herokuapp.com/collections/dome',
-    comparator : mostRecent
-
-
-  });
-
-
-var doMeList = new DoMeList();
-// doMeList.fetch();
+/// DEFINE MODEL VIEW          ///
+/// I DON'T NEED ONE RIGHT NOW ///
 
 
 
+// Completely ridiculous, but working, way to force a sort that returns the latest submission first; converts _id from hexadecimal to decimal and sorts by negative, so higher _id values are shown first; since no _id has yet been generated for the new item, force a very large negative number to be returned
+    var mostRecent = function (model) {
+      var pseudoID;
+      if (model.get('_id') == undefined) {
+        pseudoID = -9e+28;
+      }
+      else {
+        pseudoID = -(parseInt((model.get('_id')), 16));
+      }
+      return pseudoID;
+    }
 
 
+/// DEFINE COLLECTION ///
 
-var DoMeView = Backbone.View.extend({
-  className : 'do-me-list',
-
-  initialize: function(){
-      console.log("Ready to do me!");
-      this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'remove', this.render);
-      this.collection.fetch();
-    },
-
-    render: function(){
-      var source = $('#do-me-template').html();
-      var template = Handlebars.compile(source);
-      var rendered = template({doMeList: this.collection.toJSON()});
-      this.$el.html(rendered);
-      return this;
-  },
+    var DoMeList = Backbone.Collection.extend({
+        model: DoMe,
+        url:'http://tiny-pizza-server.herokuapp.com/collections/dome',
+        comparator : mostRecent
+      });
 
 
+    var doMeList = new DoMeList();
 
 
+/// DEFINE COLLECTION VIEW ///
 
-});
+    var DoMeListView = Backbone.View.extend({
+      className : 'do-me-list',
 
-var doMeView = new DoMeView ({
-  collection: doMeList
-});
+      initialize: function(){
+          console.log("Ready to do me!");
+          this.listenTo(this.collection, 'add', this.render);
+          this.listenTo(this.collection, 'change', this.render);
+          this.listenTo(this.collection, 'remove', this.render);
+          this.collection.fetch();
+        },
+
+        render: function(){
+          var source = $('#do-me-template').html();
+          var template = Handlebars.compile(source);
+          var rendered = template({doMeList: this.collection.toJSON()});
+          this.$el.html(rendered);
+          return this;
+        },
+
+        events: {
+          'click .edit'     : 'editDoMe',
+          'click .complete' : 'completeDoMe',
+          'click .save'     : 'updateDoMe',
+          'click .delete'   : 'deleteDoMe'
+        },
+
+        completeDoMe : function(e) {
+            alert('Completing');
+            var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
+            doMe.set('status', 'completed');
+            $(e.currentTarget.parentElement).find('.summary').addClass('completed');
+            doMe.save();
+          },
+
+
+        editDoMe: function (e) {
+          console.log('It works!');
+          var parent = e.currentTarget.parentElement;
+          $(e.currentTarget.parentElement).find('.summary').css('color','blue');
+          $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
+          $(e.currentTarget.parentElement).find('.edit').hide();
+          $(e.currentTarget.parentElement).find('.save').show();
+          console.log('Editing');
+        },
+
+        updateDoMe: function (e) {
+          console.log('Trying to save!');
+          var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
+          console.log(doMe);
+          var doMeSummary = $(e.currentTarget.parentElement).find('.summary').text();
+          console.log(doMeSummary);
+          doMe.set('summary', doMeSummary);
+          console.log('Previous summary: ' + doMe.previous('summary') + ' replaced');
+          doMe.save();
+          $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
+          $(e.currentTarget.parentElement).find('.summary').css('color','blue');
+          $(e.currentTarget.parentElement).find('.edit').show();
+          $(e.currentTarget.parentElement).find('.save').hide();
+        },
+
+        deleteDoMe: function(e) {
+          alert('Deleting');
+          console.log('Delete');
+          var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
+          doMe.destroy();
+        }
+    });
+
+
+    var doMeListView = new DoMeListView ({
+      collection: doMeList
+    });
 
 
 $(document).ready(function() {
-    $('.do-me-list').append(doMeView.render().$el);
+    $('.do-me-list').append(doMeListView.render().$el);
     $('#add-task').submit(function(ev){
         var doMe = new DoMe({summary: $('#new-task').val()});
         doMe.save(null, {wait: true});
         doMeList.add(doMe);
         return false;
       });
-
-///this works first time only
-    $('.delete').click(function() {
-      alert('Deleting');
-      console.log('Delete');
-        var getId = ($(this).parent().attr('id'));
-        doMeList.remove( doMeList.get(getId) );
-        var modo = doMeList.get(getId);
-        // modo.destroy();
-    })
-
-    $('.complete').click(function() {
-      alert('Completing');
-      console.log('Completing');
-
-    })
-    $('.edit').click(function() {
-      alert('Editing');
-      alert($(this).siblings('strong').attr('contenteditable'));
-      $(this).siblings('strong').css('color', 'blue');
-      $(this).siblings('strong').attr({'contenteditable' : 'true'});
-      alert($(this).siblings('strong').attr('contenteditable'));
-      console.log('Editing');
-
-    })
-
- })
-
-
-
-
-$('h1').click(function() {
-  alert('Clicked');
-  console.log('Delete');
-    // var getId = ($(this).parent().attr('id'));
-    // doMeList.remove( doMeList.get(getId) );
-})
-
-
-///error this is not a function
-// $('.delete').addEventListener('click', function() {
-//         var getId = ($(this).parent().attr('id'));
-//         console.log(getId);
-//         doMeList.get(getId).destroy();
-//     }, false);
-
-
-    //// this doesn't do anything outside of a function
-    $('.delete').click(function() {
-      alert('Deleting');
-      console.log('Delete');
-        var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
-        var modo = doMeList.get(getId);
-        modo.destroy();
-    })
-
-
-    $('.edit').click(function() {
-      alert('Editing');
-      alert($(this).siblings('strong').attr('contenteditable'));
-      $(this).siblings('strong').css('', 'blue');
-      console.log('Editing');
-
-    })
+    });
