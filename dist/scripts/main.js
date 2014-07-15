@@ -74,11 +74,12 @@
           'click .edit'     : 'editDoMe',
           'click .complete' : 'completeDoMe',
           'click .save'     : 'updateDoMe',
-          'click .delete'   : 'deleteDoMe'
+          'click .delete'   : 'deleteDoMe',
+          'click .now'      : 'nowDoMe',
+          'click .later'    : 'laterDoMe'
         },
 
         completeDoMe : function(e) {
-            alert('Completing');
             var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
             doMe.set('status', 'completed');
             $(e.currentTarget.parentElement).find('.summary').addClass('completed');
@@ -87,7 +88,6 @@
 
 
         editDoMe: function (e) {
-          console.log('It works!');
           var parent = e.currentTarget.parentElement;
           $(e.currentTarget.parentElement).find('.summary').css('color','blue');
           $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
@@ -112,11 +112,19 @@
         },
 
         deleteDoMe: function(e) {
-          alert('Deleting');
           console.log('Delete');
           var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
           doMe.destroy();
+        },
+
+        laterDoMe: function(e) {
+          alert('Wouldn\'t be awesome if clicking this did something?');
+        },
+
+        nowDoMe: function(e) {
+          alert('Wouldn\'t be awesome if clicking this did something?');
         }
+
     });
 
 
