@@ -18,46 +18,13 @@
     });
 
 
-/// DEFINE MODEL VIEW ///
 
-    var DoMeView = Backbone.View.extend({
-      className : 'do-me-item',
-
-      initialize: function(){
-        console.log("Ready to do me!");
-        },
-
-      events: {
-        'click .edit'     : 'editToDo',
-        'click .complete' : 'completeToDo'
-      },
-
-      completeToDo : function(e) {
-          alert('Completing');
-          console.log('Completing');
-        },
+/// DEFINE MODEL VIEW          ///
+/// I DON'T NEED ONE RIGHT NOW ///
 
 
-      editToDo: function (e) {
-        console.log('It works!');
-        var parent = e.currentTarget.parentElement;
-        $(e.currentTarget.parentElement).find('strong').css('color','blue');
-        $(e.currentTarget.parentElement).find('strong').attr({'contenteditable':'true'});
-        console.log('Editing');
-        }
 
-    });
-
-//// this doesn't do anything outside of a function
-$('.delete').click(function() {
-  alert('Deleting');
-  console.log('Delete');
-    var getId = ($(this).parent().attr('id'));
-    // doMeList.remove( doMeList.get(getId) );
-    var modo = doMeList.get(getId);
-    modo.destroy();
-})
-// This is a completely ridiculously way to force a sort that returns the latest submission first; converts _id from hexadecimal to decimal and sorts by negative, so higher _id values are shown first; since no _id has yet been generated for the new item, force a very large negative number to be returned
+// Completely ridiculous, but working, way to force a sort that returns the latest submission first; converts _id from hexadecimal to decimal and sorts by negative, so higher _id values are shown first; since no _id has yet been generated for the new item, force a very large negative number to be returned
     var mostRecent = function (model) {
       var pseudoID;
       if (model.get('_id') == undefined) {
@@ -104,41 +71,51 @@ $('.delete').click(function() {
         },
 
         events: {
-          'click .edit'     : 'editToDo',
-          'click .complete' : 'completeToDo',
-          'click .save'     : 'updateToDo'
+          'click .edit'     : 'editDoMe',
+          'click .complete' : 'completeDoMe',
+          'click .save'     : 'updateDoMe',
+          'click .delete'   : 'deleteDoMe'
         },
 
-        completeToDo : function(e) {
+        completeDoMe : function(e) {
             alert('Completing');
-            console.log('Completing');
+            var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
+            doMe.set('status', 'completed');
+            $(e.currentTarget.parentElement).find('.summary').addClass('completed');
+            doMe.save();
           },
 
 
-        editToDo: function (e) {
+        editDoMe: function (e) {
           console.log('It works!');
           var parent = e.currentTarget.parentElement;
-          $(e.currentTarget.parentElement).find('strong').css('color','blue');
-          $(e.currentTarget.parentElement).find('strong').attr({'contenteditable':'true'});
+          $(e.currentTarget.parentElement).find('.summary').css('color','blue');
+          $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
           $(e.currentTarget.parentElement).find('.edit').hide();
           $(e.currentTarget.parentElement).find('.save').show();
           console.log('Editing');
         },
 
-        updateToDo: function (e) {
+        updateDoMe: function (e) {
           console.log('Trying to save!');
           var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
-          var doMeId = doMeList.get($(e.currentTarget.parentElement).attr('id')).id;
           console.log(doMe);
-          var doMeSummary = $(e.currentTarget.parentElement).find('strong').text();
+          var doMeSummary = $(e.currentTarget.parentElement).find('.summary').text();
           console.log(doMeSummary);
           doMe.set('summary', doMeSummary);
           console.log('Previous summary: ' + doMe.previous('summary') + ' replaced');
           doMe.save();
-          $(e.currentTarget.parentElement).find('strong').attr({'contenteditable':'true'});
-          $(e.currentTarget.parentElement).find('strong').css('color','blue');
+          $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
+          $(e.currentTarget.parentElement).find('.summary').css('color','blue');
           $(e.currentTarget.parentElement).find('.edit').show();
           $(e.currentTarget.parentElement).find('.save').hide();
+        },
+
+        deleteDoMe: function(e) {
+          alert('Deleting');
+          console.log('Delete');
+          var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
+          doMe.destroy();
         }
     });
 
@@ -156,75 +133,4 @@ $(document).ready(function() {
         doMeList.add(doMe);
         return false;
       });
-
-
-///this works first time only
-    $('.delete').click(function() {
-      alert('Deleting');
-      console.log('Delete');
-        var getId = ($(this).parent().attr('id'));
-        doMeList.remove( doMeList.get(getId) );
-        var modo = doMeList.get(getId);
-        // modo.destroy();
-    })
-
-    $('.complete').click(function() {
-      alert('Completing');
-      console.log('Completing');
-
-    })
-    var editToDo = function() {
-      console.log('Editing');
-      $(this).siblings('strong').css('color', 'blue');
-      $(this).siblings('strong').attr({'contenteditable': 'true'});
-      $(this).siblings('.save').show();
-      $(this).hide();
-
-    }
-
-    $('.edit').click(editToDo);
-
- })
-
-
-$('h1').click(function() {
-  alert('Clicked');
-  console.log('Delete');
-    // var getId = ($(this).parent().attr('id'));
-    // doMeList.remove( doMeList.get(getId) );
-})
-
-
-///error this is not a function
-// $('.delete').addEventListener('click', function() {
-//         var getId = ($(this).parent().attr('id'));
-//         console.log(getId);
-//         doMeList.get(getId).destroy();
-//     }, false);
-
-
-    //// this doesn't do anything outside of a function
-    $('.delete').click(function() {
-      alert('Deleting');
-      console.log('Delete');
-        var getId = ($(this).parent().attr('id'));
-        // doMeList.remove( doMeList.get(getId) );
-        var modo = doMeList.get(getId);
-        modo.destroy();
-    })
-
-
-
-
-
-
-    var editToDo = function() {
-      console.log('Editing');
-      $(this).siblings('strong').css('color', 'blue');
-      $(this).siblings('strong').attr({'contenteditable': 'true'});
-      $(this).siblings('.save').show();
-      $(this).hide();
-
-    }
-
-    $('.edit').click(editToDo);
+    });

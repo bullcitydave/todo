@@ -9,22 +9,33 @@ body {
   color: #333;
 }
 
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 600px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
-  h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
+p.summary {
+  font-weight: bold;
+  float:left;
+  clear:both;
+}
+
+.todo-action {
+  float:left;
 }
 
 .save {
+  @extend .todo-action;
   display:none;
+}
+
+.delete {
+  @extend .todo-action;
+}
+
+.edit {
+  @extend .todo-action;
+}
+
+.complete {
+  @extend .todo-action;
+}
+
+.completed {
+  text-decoration:line-through;
 }
