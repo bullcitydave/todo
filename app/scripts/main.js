@@ -126,11 +126,13 @@
 
 
 $(document).ready(function() {
-    $('.do-me-list').append(doMeListView.render().$el);
-    $('#add-task').submit(function(ev){
-        var doMe = new DoMe({summary: $('#new-task').val()});
+    $('.main-list').append(doMeListView.render().$el);
+    $('#add-do-me').submit(function(ev){
+        var doMe = new DoMe({summary: $('#new-do-me').val()});
         doMe.save(null, {wait: true});
         doMeList.add(doMe);
+        $('#new-do-me').attr({'placeholder':'What do do now?'});
+        $('#new-do-me').val('');
         return false;
       });
     });

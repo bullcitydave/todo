@@ -1,41 +1,79 @@
  // Bourbon & Neat
 @import '../../bower_components/bourbon/dist/bourbon';
 @import '../../bower_components/neat/app/assets/stylesheets/neat';
+@import url(http://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
 
-// Custom Styles
+$title-font      : 'Nothing You Could Do', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$default-font    : 'sofia_pro_lightregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+// Colors
+$dark-prime       : darkorange;
+
+* {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
 body {
-  background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
-}
+  background: #eaeaea;
+  font-family: $default-font;
 
-p.summary {
-  font-weight: bold;
-  float:left;
-  clear:both;
-}
+  h1 {
+    font-family: $title-font;
+    color: $dark-prime;
+    font-size: 3.5em;
+  }
 
-.todo-action {
-  float:left;
-}
+  .do-me-list {
+    margin: 0 15px 0 15px;
 
-.save {
-  @extend .todo-action;
-  display:none;
-}
+    p.summary {
+      font-weight: bold;
+      float:left;
+      clear:both;
+      width:50%;
+      max-width: 480px;
+      border: solid 2px $dark-prime;
+      max-height: 75px;
+      padding: 10px;
+    }
 
-.delete {
-  @extend .todo-action;
-}
+    .todo-action {
+      float:left;
+      @include button(shiny, $dark-prime);
+      color:#eee;
+      height:35px;
+    }
 
-.edit {
-  @extend .todo-action;
-}
+    .save {
+      @extend .todo-action;
+      display:none;
+      font-family: $title-font;
+    }
 
-.complete {
-  @extend .todo-action;
-}
+    .delete, {
+      @extend .todo-action;
+    }
 
-.completed {
-  text-decoration:line-through;
+    .edit {
+      @extend .todo-action;
+      font-family: $title-font;
+    }
+
+    .complete {
+      @extend .todo-action;
+    }
+
+    .now {
+      @extend .todo-action;
+      font-family: $title-font;
+    }
+
+    .later {
+      @extend .todo-action;
+      font-family: $title-font;
+    }
+
+    .completed {
+      text-decoration:line-through;
+    }
+  }
 }
