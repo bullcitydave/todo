@@ -90,6 +90,7 @@ $('.delete').click(function() {
       initialize: function(){
           console.log("Ready to do me!");
           this.listenTo(this.collection, 'add', this.render);
+          this.listenTo(this.collection, 'change', this.render);
           this.listenTo(this.collection, 'remove', this.render);
           this.collection.fetch();
         },
@@ -104,7 +105,8 @@ $('.delete').click(function() {
 
         events: {
           'click .edit'     : 'editToDo',
-          'click .complete' : 'completeToDo'
+          'click .complete' : 'completeToDo',
+          'click .save'     : 'updateToDo'
         },
 
         completeToDo : function(e) {
@@ -118,8 +120,26 @@ $('.delete').click(function() {
           var parent = e.currentTarget.parentElement;
           $(e.currentTarget.parentElement).find('strong').css('color','blue');
           $(e.currentTarget.parentElement).find('strong').attr({'contenteditable':'true'});
+          $(e.currentTarget.parentElement).find('.edit').hide();
+          $(e.currentTarget.parentElement).find('.save').show();
           console.log('Editing');
-          }
+        },
+
+        updateToDo: function (e) {
+          console.log('Trying to save!');
+          var doMe = doMeList.get($(e.currentTarget.parentElement).attr('id'));
+          var doMeId = doMeList.get($(e.currentTarget.parentElement).attr('id')).id;
+          console.log(doMe);
+          var doMeSummary = $(e.currentTarget.parentElement).find('strong').text();
+          console.log(doMeSummary);
+          doMe.set('summary', doMeSummary);
+          console.log('Previous summary: ' + doMe.previous('summary') + ' replaced');
+          doMe.save();
+          $(e.currentTarget.parentElement).find('strong').attr({'contenteditable':'true'});
+          $(e.currentTarget.parentElement).find('strong').css('color','blue');
+          $(e.currentTarget.parentElement).find('.edit').show();
+          $(e.currentTarget.parentElement).find('.save').hide();
+        }
     });
 
 
