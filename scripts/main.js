@@ -91,7 +91,7 @@
 
         editDoMe: function (e) {
           var parent = e.currentTarget.parentElement;
-          $(e.currentTarget.parentElement).find('.summary').css('color','blue');
+          $(e.currentTarget.parentElement).find('.summary').css({'color':'#ab4312','background':'#fff'});
           $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
           $(e.currentTarget.parentElement).find('.edit').hide();
           $(e.currentTarget.parentElement).find('.save').show();
@@ -107,8 +107,8 @@
           doMe.set('summary', doMeSummary);
           console.log('Previous summary: ' + doMe.previous('summary') + ' replaced');
           doMe.save();
-          $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'true'});
-          $(e.currentTarget.parentElement).find('.summary').css('color','blue');
+          $(e.currentTarget.parentElement).find('.summary').attr({'contenteditable':'fase'});
+          $(e.currentTarget.parentElement).find('.summary').css({'color':'black','background':'inherit'});
           $(e.currentTarget.parentElement).find('.edit').show();
           $(e.currentTarget.parentElement).find('.save').hide();
         },
@@ -146,7 +146,6 @@ $(document).ready(function() {
         return false;
       });
     });
-
 
 // Handlebars helpers
     // Helps style completed tasks when loaded
