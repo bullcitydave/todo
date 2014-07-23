@@ -16,15 +16,15 @@ $grayed-out       : #aaa;
   -webkit-margin-after: 0;
 }
 body {
-  @include outer-container;
+
 
   background: #eaeaea;
   font-family: $default-font;
 
-  section#mainwrapper { @include span-columns(11);
+  section#mainwrapper {   @include outer-container;
 
       h1 {
-        @include span-columns(11 of 11);
+        @include span-columns(12);
         font-family: $title-font;
         color: $dark-prime;
         font-size: 3.5em;
@@ -32,38 +32,39 @@ body {
       }
 
       #add-do-me {
-        @include span-columns(9 of 11);
-        @include shift(1);
+        @include span-columns(12);
+
         #new-do-me {
-          @include span-columns(7 of 9);
+          @include span-columns(8);
+          @include shift(2);
           height: 35px;
           padding: 5px;
         }
-        button {
-          @include span-columns(2 of 9);
-          float:left;
-          @include button(shiny, $dark-prime);
-          color:#eee;
-          height:35px;
-          font-family: $title-font
-        }
+        // button {
+        //   @include span-columns(2 of 9);
+        //   float:left;
+        //   @include button(shiny, $dark-prime);
+        //   color:#eee;
+        //   height:35px;
+        //   font-family: $title-font
+        // }
         margin-bottom: 30px;
       }
 
       .main-list {
+        @include span-columns(12);
         margin: 0 15px 0 15px;
 
         .do-me-item {
-
-
+          @include span-columns(12);
 
             p.summary {
+              @include span-columns(9);
+
               font-family: $default-font;
               font-weight: bold;
               float:left;
               clear:both;
-              width:50%;
-              max-width: 480px;
               border: solid 2px $dark-prime;
               max-height: 75px;
               padding: 10px;
