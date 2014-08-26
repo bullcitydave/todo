@@ -20,7 +20,7 @@
 
     <section id = "mainwrapper">
       <header>
-          <h1>Do Me Now or Do Me Later</h1>
+          <h1>Do It Now</h1>
       </header>
 
 
@@ -29,17 +29,17 @@
         <script src="scripts/main.js"></script>
 
 
-<form id="add-do-me">
+<form id="add-do-it">
 
-<input id="new-do-me" placeholder="What to do?" type="text">
+<input id="new-do-it" placeholder="What to do?" type="text">
 <button>Submit</button>
 </form>
 
 
 
-<script id="do-me-template" type="text/x-handlebars-template">
-            {{#each doMeList}}
-               <div class="do-me-item" id={{_id}}>
+<script id="do-it-template" type="text/x-handlebars-template">
+            {{#each doItList}}
+               <div class="do-it-item" id={{_id}}>
                 <p class="summary {{addClasses}}" contenteditable="false">{{summary}}</p>
                 <button class="edit"><i class="fa fa-pencil"></i></button>
                 <button class="save"><i class="fa fa-floppy-o"></i></button>
