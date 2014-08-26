@@ -1,14 +1,13 @@
-## Do Me Now or Do Me Later
+## Do It Now 
 
 
-
-- [ ] Add a new item
+- [x ] Add a new item
   - [x] Saves to local collection
   - [x] Saves to external site
 - [x] Displays new item at top of list
 - [x] Placeholder text returns after submit
 - - Nice to haves
-- - [ ] Hit enter to submit instead of using submit button
+- - [x] Hit enter to submit instead of using submit button
 
 - Edit item
    - [x] Item become editable
@@ -34,8 +33,7 @@
   - [ ] Refactor code to move styling actions to own functions
 
 - [ ] Unimplemented Features
-  - [ ] Do Me Now - a prioritization tag
-  - [ ] Do Me Later - a prioritization tag
+  - [ ] Now - a prioritization tag
+  - [ ] Later - a prioritization tag
   - [ ] Display completed tasks at bottom
-  - [ ] RESPONSIVE
   - [ ] LOTS MORE!
