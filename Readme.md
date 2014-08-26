@@ -1,7 +1,13 @@
-## Do It Now 
+# Do It Now 
+
+### Summary
+- Rite-of-passage first exercise working with an MV* framework, a single-page to-do app; this, with Backbone framework
+- Surprisingly functional, was using it for various purposes, most recently another project's issue list (an early pett.io list)
+- Cloud storage is on an Iron Yard heroku site; there's no login, so the data for ths app is open to all
 
 
-- [x ] Add a new item
+### Do It Now To Do List
+- [x] Add a new item
   - [x] Saves to local collection
   - [x] Saves to external site
 - [x] Displays new item at top of list
